@@ -513,6 +513,9 @@ GROUP BY strftime('%Y-%m', attendance_date);</code></pre>
         this.currentLesson = lessonNumber;
         const lesson = this.lessons[lessonNumber];
 
+        // Store original lesson content
+        this.originalLessonContent = lesson.content;
+
         // Update lesson content
         document.getElementById('lesson-text').innerHTML = lesson.content;
 
@@ -528,7 +531,15 @@ GROUP BY strftime('%Y-%m', attendance_date);</code></pre>
         document.getElementById('query-results').innerHTML = '<p class="no-results">Run a query to see results here...</p>';
         document.getElementById('query-info').innerHTML = '';
 
-        // Set default queries and table displays for lessons
+        // Reset all table toggle buttons
+        document.querySelectorAll('.toggle-table').forEach(btn => {
+            btn.textContent = 'Show Data ▼';
+        });
+        document.querySelectorAll('.table-data').forEach(data => {
+            data.style.display = 'none';
+        });
+
+        // Set default queries for lessons
         if (lessonNumber === 1) {
             document.getElementById('sql-input').value = 'SELECT * FROM users;';
             // Load the users table data into the lesson content
@@ -537,6 +548,9 @@ GROUP BY strftime('%Y-%m', attendance_date);</code></pre>
             document.getElementById('sql-input').value = 'SELECT * FROM users WHERE user_type = "worker";';
             // Load the users table data into the lesson content
             setTimeout(() => this.displayTableInLesson('users'), 100);
+        } else {
+            // For other lessons, just set a basic query
+            document.getElementById('sql-input').value = 'SELECT * FROM users;';
         }
 
         console.log(`Loaded lesson ${lessonNumber}: ${lesson.title}`);
@@ -667,10 +681,7 @@ GROUP BY strftime('%Y-%m', attendance_date);</code></pre>
     }
 
     // Method to display table directly in lesson content (like SQLBolt)
-    displayTableInLesson(tableName) {
-        const tableDisplayDiv = document.getElementById('table-display');
-        if (!tableDisplayDiv) return;
-
+    displayTableInLesson(tableName, replaceContent = false) {
         try {
             const results = this.db.exec(`SELECT * FROM ${tableName}`);
             if (results && results.length > 0) {
@@ -705,12 +716,49 @@ GROUP BY strftime('%Y-%m', attendance_date);</code></pre>
                         </div>
                     </div>`;
                 
-                tableDisplayDiv.innerHTML = html;
+                if (replaceContent) {
+                    // Replace entire lesson content with just the table
+                    document.getElementById('lesson-text').innerHTML = html;
+                } else {
+                    // Insert into designated table display area
+                    const tableDisplayDiv = document.getElementById('table-display');
+                    if (tableDisplayDiv) {
+                        tableDisplayDiv.innerHTML = html;
+                    }
+                }
             } else {
-                tableDisplayDiv.innerHTML = '<p>No data found</p>';
+                const message = '<p>No data found</p>';
+                if (replaceContent) {
+                    document.getElementById('lesson-text').innerHTML = message;
+                } else {
+                    const tableDisplayDiv = document.getElementById('table-display');
+                    if (tableDisplayDiv) {
+                        tableDisplayDiv.innerHTML = message;
+                    }
+                }
             }
         } catch (error) {
-            tableDisplayDiv.innerHTML = `<p style="color: var(--error-color);">Error loading table: ${error.message}</p>`;
+            const errorMessage = `<p style="color: var(--error-color);">Error loading table: ${error.message}</p>`;
+            if (replaceContent) {
+                document.getElementById('lesson-text').innerHTML = errorMessage;
+            } else {
+                const tableDisplayDiv = document.getElementById('table-display');
+                if (tableDisplayDiv) {
+                    tableDisplayDiv.innerHTML = errorMessage;
+                }
+            }
+        }
+    }
+
+    // Method to reset lesson content to original state
+    resetLessonContent() {
+        if (this.originalLessonContent) {
+            document.getElementById('lesson-text').innerHTML = this.originalLessonContent;
+            
+            // Re-initialize table display for lessons that have default tables
+            if (this.currentLesson === 1 || this.currentLesson === 2) {
+                setTimeout(() => this.displayTableInLesson('users'), 100);
+            }
         }
     }
 }
@@ -725,19 +773,26 @@ function toggleTableData(tableName) {
     const toggleBtn = dataDiv.parentElement.querySelector('.toggle-table');
     
     if (dataDiv.style.display === 'none') {
-        // Show table data
-        dataDiv.innerHTML = '<div class="loading">Loading...</div>';
-        dataDiv.style.display = 'block';
-        toggleBtn.textContent = 'Hide Data ▲';
+        // Show table data in the main lesson content area (replace entire content)
+        tutorialInstance.displayTableInLesson(tableName, true);
         
-        // Load the actual data
-        setTimeout(() => {
-            dataDiv.innerHTML = tutorialInstance.loadTableData(tableName);
-        }, 100);
+        // Update the button text for this table
+        toggleBtn.textContent = 'Hide Data ▲';
+        dataDiv.style.display = 'block';
+        
+        // Reset all other buttons
+        document.querySelectorAll('.toggle-table').forEach(btn => {
+            if (btn !== toggleBtn) {
+                btn.textContent = 'Show Data ▼';
+                const siblingData = btn.parentElement.parentElement.querySelector('.table-data');
+                if (siblingData) siblingData.style.display = 'none';
+            }
+        });
     } else {
-        // Hide table data
-        dataDiv.style.display = 'none';
+        // Hide the table and reset to lesson content
+        tutorialInstance.resetLessonContent();
         toggleBtn.textContent = 'Show Data ▼';
+        dataDiv.style.display = 'none';
     }
 }
 
