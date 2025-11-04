@@ -16,12 +16,10 @@ class SQLTutorial {
             await this.loadDatabase();
             // Load lessons
             await this.loadLessons();
-            // Set up event listeners
-            this.setupEventListeners();
-            // Load first lesson
-            this.loadLesson(1);
-            
-            console.log('Community Center SQL Tutorial initialized successfully!');
+        // Set up event listeners
+        this.setupEventListeners();
+        // Load initial interface
+        this.loadInitialInterface();            console.log('Community Center SQL Tutorial initialized successfully!');
         } catch (error) {
             console.error('Failed to initialize tutorial:', error);
             this.showError('Failed to initialize the tutorial. Please refresh the page.');
@@ -486,14 +484,7 @@ GROUP BY strftime('%Y-%m', attendance_date);</code></pre>
             this.showSolution();
         });
 
-        // Lesson navigation
-        document.querySelectorAll('.lesson-link').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const lesson = parseInt(e.target.dataset.lesson);
-                this.loadLesson(lesson);
-            });
-        });
+
 
         // Enter key to run query
         document.getElementById('sql-input').addEventListener('keydown', (e) => {
@@ -504,56 +495,35 @@ GROUP BY strftime('%Y-%m', attendance_date);</code></pre>
         });
     }
 
-    loadLesson(lessonNumber) {
-        if (!this.lessons[lessonNumber]) {
-            console.error('Lesson not found:', lessonNumber);
-            return;
-        }
+    loadInitialInterface() {
+        // Set initial content
+        const initialContent = `
+            <h2>Community Center SQL Tutorial</h2>
+            <p>Welcome to the interactive SQL tutorial! Use the database tables on the left to explore the community center data, then write and execute SQL queries below.</p>
+            
+            <h3>Getting Started</h3>
+            <p>Click "Show Data" on any table in the left panel to view the actual data, then experiment with SQL queries to explore and analyze the community center database.</p>
+            
+            <div id="table-display"></div>
+        `;
 
-        this.currentLesson = lessonNumber;
-        const lesson = this.lessons[lessonNumber];
-
-        // Store original lesson content
-        this.originalLessonContent = lesson.content;
+        // Store original content
+        this.originalLessonContent = initialContent;
 
         // Update lesson content
-        document.getElementById('lesson-text').innerHTML = lesson.content;
-
-        // Update active lesson link
-        document.querySelectorAll('.lesson-link').forEach(link => {
-            link.classList.remove('active');
-            if (parseInt(link.dataset.lesson) === lessonNumber) {
-                link.classList.add('active');
-            }
-        });
+        document.getElementById('lesson-text').innerHTML = initialContent;
 
         // Clear previous results
         document.getElementById('query-results').innerHTML = '<p class="no-results">Run a query to see results here...</p>';
         document.getElementById('query-info').innerHTML = '';
 
-        // Reset all table toggle buttons
-        document.querySelectorAll('.toggle-table').forEach(btn => {
-            btn.textContent = 'Show Data ▼';
-        });
-        document.querySelectorAll('.table-data').forEach(data => {
-            data.style.display = 'none';
-        });
+        // Set default query
+        document.getElementById('sql-input').value = 'SELECT * FROM users;';
 
-        // Set default queries for lessons
-        if (lessonNumber === 1) {
-            document.getElementById('sql-input').value = 'SELECT * FROM users;';
-            // Load the users table data into the lesson content
-            setTimeout(() => this.displayTableInLesson('users'), 100);
-        } else if (lessonNumber === 2) {
-            document.getElementById('sql-input').value = 'SELECT * FROM users WHERE user_type = "worker";';
-            // Load the users table data into the lesson content
-            setTimeout(() => this.displayTableInLesson('users'), 100);
-        } else {
-            // For other lessons, just set a basic query
-            document.getElementById('sql-input').value = 'SELECT * FROM users;';
-        }
+        // Show users table by default
+        setTimeout(() => this.displayTableInLesson('users'), 100);
 
-        console.log(`Loaded lesson ${lessonNumber}: ${lesson.title}`);
+        console.log('Community Center SQL Tutorial initialized');
     }
 
     executeQuery() {
@@ -755,10 +725,8 @@ GROUP BY strftime('%Y-%m', attendance_date);</code></pre>
         if (this.originalLessonContent) {
             document.getElementById('lesson-text').innerHTML = this.originalLessonContent;
             
-            // Re-initialize table display for lessons that have default tables
-            if (this.currentLesson === 1 || this.currentLesson === 2) {
-                setTimeout(() => this.displayTableInLesson('users'), 100);
-            }
+            // Re-initialize table display with users table
+            setTimeout(() => this.displayTableInLesson('users'), 100);
         }
     }
 }
