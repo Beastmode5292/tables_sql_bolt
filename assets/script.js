@@ -211,7 +211,8 @@ class SQLTutorial {
                     <h2>🎓 Welcome to Community Center SQL!</h2>
                     <p>Welcome to your SQL journey! You'll be learning SQL using a real community center database that manages users, classes, events, and attendance.</p>
                     
-                    <h3>About Our Database</h3>
+                    <h3>Explore the Database Tables</h3>
+                    <p>👈 Look at the left panel and click "Show Data" on any table to see the actual data!</p>
                     <p>Our community center database contains:</p>
                     <ul>
                         <li><strong>users</strong> - Teachers (workers) and students (visitors)</li>
@@ -222,17 +223,24 @@ class SQLTutorial {
                         <li><strong>messages</strong> - Communication between students and teachers</li>
                     </ul>
 
-                    <h3>Your First Query</h3>
+                    <h3>Exercise 1 — Tasks</h3>
                     <p>Let's start with the most basic SQL command: <code>SELECT</code>. This command lets you retrieve data from a table.</p>
-                    <p><strong>Task:</strong> Run the query below to see all users in our community center:</p>
+                    
+                    <ol>
+                        <li><strong>Find the <code>title</code> of each user</strong> (hint: look at the users table schema)</li>
+                        <li><strong>Find the <code>name</code> of each class</strong></li>
+                        <li><strong>Find the <code>title</code> and <code>event_date</code> of each event</strong></li>
+                        <li><strong>Find all the information about each user</strong></li>
+                    </ol>
+
+                    <p><strong>Start here:</strong> Type your first query to see all users:</p>
                     <pre><code>SELECT * FROM users;</code></pre>
                     <p>The <code>*</code> means "all columns" and <code>FROM users</code> specifies which table to query.</p>
 
-                    <h3>Try It!</h3>
-                    <p>Execute the query in the editor to see our community center users!</p>
+                    <p><strong>Stuck?</strong> Click "Show Solution" for help, or explore the table data in the left panel!</p>
                 `,
                 solution: "SELECT * FROM users;",
-                hint: "Use SELECT * FROM users; to see all user data"
+                hint: "Use SELECT * FROM users; to see all user data. Then try SELECT username FROM users; for just usernames."
             },
             2: {
                 title: "Filtering with WHERE",
@@ -546,6 +554,11 @@ GROUP BY strftime('%Y-%m', attendance_date);</code></pre>
         document.getElementById('query-results').innerHTML = '<p class="no-results">Run a query to see results here...</p>';
         document.getElementById('query-info').innerHTML = '';
 
+        // Set a default query for lesson 1
+        if (lessonNumber === 1) {
+            document.getElementById('sql-input').value = 'SELECT * FROM users;';
+        }
+
         console.log(`Loaded lesson ${lessonNumber}: ${lesson.title}`);
     }
 
@@ -637,9 +650,70 @@ GROUP BY strftime('%Y-%m', attendance_date);</code></pre>
             console.log('Query validation could be added here');
         }
     }
+
+    // Method to load table data for preview
+    loadTableData(tableName) {
+        try {
+            const results = this.db.exec(`SELECT * FROM ${tableName} LIMIT 10`);
+            if (results && results.length > 0) {
+                const { columns, values } = results[0];
+                
+                let html = '<table><thead><tr>';
+                columns.forEach(col => {
+                    html += `<th>${col}</th>`;
+                });
+                html += '</tr></thead><tbody>';
+
+                values.forEach(row => {
+                    html += '<tr>';
+                    row.forEach(cell => {
+                        html += `<td>${cell !== null ? cell : 'NULL'}</td>`;
+                    });
+                    html += '</tr>';
+                });
+                html += '</tbody></table>';
+                
+                if (values.length === 10) {
+                    html += '<p style="font-size: 0.7rem; color: var(--text-secondary); margin-top: 0.5rem; font-style: italic;">Showing first 10 rows...</p>';
+                }
+                
+                return html;
+            } else {
+                return '<p style="color: var(--text-secondary); font-style: italic;">No data found</p>';
+            }
+        } catch (error) {
+            return `<p style="color: var(--error-color);">Error loading table: ${error.message}</p>`;
+        }
+    }
+}
+
+// Global function for toggling table data (needed for onclick handlers)
+let tutorialInstance = null;
+
+function toggleTableData(tableName) {
+    if (!tutorialInstance) return;
+    
+    const dataDiv = document.getElementById(`${tableName}-data`);
+    const toggleBtn = dataDiv.parentElement.querySelector('.toggle-table');
+    
+    if (dataDiv.style.display === 'none') {
+        // Show table data
+        dataDiv.innerHTML = '<div class="loading">Loading...</div>';
+        dataDiv.style.display = 'block';
+        toggleBtn.textContent = 'Hide Data ▲';
+        
+        // Load the actual data
+        setTimeout(() => {
+            dataDiv.innerHTML = tutorialInstance.loadTableData(tableName);
+        }, 100);
+    } else {
+        // Hide table data
+        dataDiv.style.display = 'none';
+        toggleBtn.textContent = 'Show Data ▼';
+    }
 }
 
 // Initialize the tutorial when the page loads
 document.addEventListener('DOMContentLoaded', () => {
-    new SQLTutorial();
+    tutorialInstance = new SQLTutorial();
 });

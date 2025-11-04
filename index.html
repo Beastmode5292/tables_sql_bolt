@@ -43,31 +43,84 @@
 
             <section class="query-section">
                 <div class="schema-viewer">
-                    <h3>📋 Database Schema</h3>
+                    <h3>📋 Database Tables</h3>
                     <div id="schema-content">
-                        <div class="table-info">
-                            <h4>👥 users</h4>
-                            <p><strong>id</strong>, username, email, user_type, approved, created_at</p>
+                        <div class="table-preview" data-table="users">
+                            <div class="table-header">
+                                <h4>👥 users</h4>
+                                <button class="toggle-table" onclick="toggleTableData('users')">Show Data ▼</button>
+                            </div>
+                            <div class="table-schema">
+                                <p><strong>id</strong>, username, email, user_type, approved, created_at</p>
+                            </div>
+                            <div class="table-data" id="users-data" style="display: none;">
+                                <div class="loading">Loading...</div>
+                            </div>
                         </div>
-                        <div class="table-info">
-                            <h4>📚 classes</h4>
-                            <p><strong>id</strong>, teacher_id, name, subject, description, capacity, schedule, status</p>
+                        
+                        <div class="table-preview" data-table="classes">
+                            <div class="table-header">
+                                <h4>📚 classes</h4>
+                                <button class="toggle-table" onclick="toggleTableData('classes')">Show Data ▼</button>
+                            </div>
+                            <div class="table-schema">
+                                <p><strong>id</strong>, teacher_id, name, subject, description, capacity, schedule, status</p>
+                            </div>
+                            <div class="table-data" id="classes-data" style="display: none;">
+                                <div class="loading">Loading...</div>
+                            </div>
                         </div>
-                        <div class="table-info">
-                            <h4>✏️ class_enrollments</h4>
-                            <p><strong>id</strong>, class_id, student_id, student_name, enrollment_date, status</p>
+                        
+                        <div class="table-preview" data-table="class_enrollments">
+                            <div class="table-header">
+                                <h4>✏️ class_enrollments</h4>
+                                <button class="toggle-table" onclick="toggleTableData('class_enrollments')">Show Data ▼</button>
+                            </div>
+                            <div class="table-schema">
+                                <p><strong>id</strong>, class_id, student_id, student_name, enrollment_date, status</p>
+                            </div>
+                            <div class="table-data" id="class_enrollments-data" style="display: none;">
+                                <div class="loading">Loading...</div>
+                            </div>
                         </div>
-                        <div class="table-info">
-                            <h4>📊 class_attendance</h4>
-                            <p><strong>id</strong>, class_id, student_id, student_name, attendance_date, status, recorded_by</p>
+                        
+                        <div class="table-preview" data-table="class_attendance">
+                            <div class="table-header">
+                                <h4>📊 class_attendance</h4>
+                                <button class="toggle-table" onclick="toggleTableData('class_attendance')">Show Data ▼</button>
+                            </div>
+                            <div class="table-schema">
+                                <p><strong>id</strong>, class_id, student_id, student_name, attendance_date, status, recorded_by</p>
+                            </div>
+                            <div class="table-data" id="class_attendance-data" style="display: none;">
+                                <div class="loading">Loading...</div>
+                            </div>
                         </div>
-                        <div class="table-info">
-                            <h4>📅 events</h4>
-                            <p><strong>id</strong>, title, description, event_date, event_time, location, created_by</p>
+                        
+                        <div class="table-preview" data-table="events">
+                            <div class="table-header">
+                                <h4>📅 events</h4>
+                                <button class="toggle-table" onclick="toggleTableData('events')">Show Data ▼</button>
+                            </div>
+                            <div class="table-schema">
+                                <p><strong>id</strong>, title, description, event_date, event_time, location, created_by</p>
+                            </div>
+                            <div class="table-data" id="events-data" style="display: none;">
+                                <div class="loading">Loading...</div>
+                            </div>
                         </div>
-                        <div class="table-info">
-                            <h4>💬 messages</h4>
-                            <p><strong>id</strong>, user_id, subject, content, senderName, recipientWorker, timestamp</p>
+                        
+                        <div class="table-preview" data-table="messages">
+                            <div class="table-header">
+                                <h4>💬 messages</h4>
+                                <button class="toggle-table" onclick="toggleTableData('messages')">Show Data ▼</button>
+                            </div>
+                            <div class="table-schema">
+                                <p><strong>id</strong>, user_id, subject, content, senderName, recipientWorker, timestamp</p>
+                            </div>
+                            <div class="table-data" id="messages-data" style="display: none;">
+                                <div class="loading">Loading...</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -75,7 +128,7 @@
                 <div class="sql-editor">
                     <h3>🔍 SQL Query Editor</h3>
                     <div class="editor-container">
-                        <textarea id="sql-input" placeholder="Type your SQL query here...">SELECT * FROM users LIMIT 5;</textarea>
+                        <textarea id="sql-input" placeholder="Type your SQL query here...">SELECT * FROM users;</textarea>
                         <div class="editor-controls">
                             <button id="run-query" class="btn-primary">Run Query</button>
                             <button id="clear-query" class="btn-secondary">Clear</button>
