@@ -295,6 +295,13 @@ main {
     background: rgba(37, 99, 235, 0.08);
 }
 
+/* Editor and Results Container */
+.editor-and-results {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
 /* SQL Editor */
 .sql-editor {
     background: var(--card-background);
@@ -302,7 +309,6 @@ main {
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
     border: 1px solid var(--border-color);
-    margin-bottom: 1.5rem;
 }
 
 .sql-editor h3 {

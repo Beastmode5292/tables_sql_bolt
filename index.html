@@ -125,24 +125,26 @@
                     </div>
                 </div>
 
-                <div class="sql-editor">
-                    <h3>🔍 SQL Query Editor</h3>
-                    <div class="editor-container">
-                        <textarea id="sql-input" placeholder="Type your SQL query here...">SELECT * FROM users;</textarea>
-                        <div class="editor-controls">
-                            <button id="run-query" class="btn-primary">Run Query</button>
-                            <button id="clear-query" class="btn-secondary">Clear</button>
-                            <button id="show-solution" class="btn-hint">Show Solution</button>
+                <div class="editor-and-results">
+                    <div class="sql-editor">
+                        <h3>🔍 SQL Query Editor</h3>
+                        <div class="editor-container">
+                            <textarea id="sql-input" placeholder="Type your SQL query here...">SELECT * FROM users;</textarea>
+                            <div class="editor-controls">
+                                <button id="run-query" class="btn-primary">Run Query</button>
+                                <button id="clear-query" class="btn-secondary">Clear</button>
+                                <button id="show-solution" class="btn-hint">Show Solution</button>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="results-section">
-                    <h3>📈 Query Results</h3>
-                    <div id="query-results">
-                        <p class="no-results">Run a query to see results here...</p>
+                    <div class="results-section">
+                        <h3>📈 Query Results</h3>
+                        <div id="query-results">
+                            <p class="no-results">Run a query to see results here...</p>
+                        </div>
+                        <div id="query-info" class="query-info"></div>
                     </div>
-                    <div id="query-info" class="query-info"></div>
                 </div>
             </section>
         </div>
