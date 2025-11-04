@@ -1,0 +1,30 @@
+{
+  "name": "community-center-sql-tutorial",
+  "version": "1.0.0",
+  "description": "Interactive SQL learning platform using community center database - SQLBolt style tutorial",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8080",
+    "dev": "python -m http.server 3000",
+    "build": "echo 'No build step required for static site'"
+  },
+  "keywords": [
+    "sql",
+    "tutorial",
+    "database",
+    "learning",
+    "education",
+    "sqljs",
+    "community-center"
+  ],
+  "author": "Beastmode5292",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Beastmode5292/tables_sql_bolt.git"
+  },
+  "homepage": "https://github.com/Beastmode5292/tables_sql_bolt",
+  "engines": {
+    "node": ">=16"
+  }
+}

@@ -37,8 +37,8 @@ An interactive SQL learning platform inspired by SQLBolt, using a real-world com
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/yourusername/community-center-sql-tutorial.git
-   cd community-center-sql-tutorial
+   git clone https://github.com/Beastmode5292/tables_sql_bolt.git
+   cd tables_sql_bolt
    ```
 
 2. **Open in browser**:
@@ -152,13 +152,18 @@ By completing this tutorial, you will be able to:
 ### GitHub Pages
 1. Enable GitHub Pages in repository settings
 2. Select source branch (main)
-3. Your tutorial will be available at `https://yourusername.github.io/community-center-sql-tutorial`
+3. Your tutorial will be available at `https://Beastmode5292.github.io/tables_sql_bolt`
+
+### Railway Deployment
+1. Connect your GitHub repository to Railway
+2. Deploy automatically on every push to main
+3. Your tutorial will be available at your Railway app URL
 
 ### Local Development
 ```bash
 # Clone and open
-git clone https://github.com/yourusername/community-center-sql-tutorial.git
-cd community-center-sql-tutorial
+git clone https://github.com/Beastmode5292/tables_sql_bolt.git
+cd tables_sql_bolt
 open index.html  # or double-click the file
 ```
 
