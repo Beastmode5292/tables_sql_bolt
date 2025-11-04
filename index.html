@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Center SQL Tutorial</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🏢 Community Center SQL Tutorial</h1>
+            <p>Learn SQL with a real-world community center database!</p>
+        </div>
+    </header>
+
+    <nav class="lesson-nav">
+        <div class="container">
+            <h3>Lessons</h3>
+            <ul id="lesson-list">
+                <li><a href="#" data-lesson="1" class="lesson-link active">Introduction & Basic SELECT</a></li>
+                <li><a href="#" data-lesson="2" class="lesson-link">Filtering with WHERE</a></li>
+                <li><a href="#" data-lesson="3" class="lesson-link">Sorting and Ordering</a></li>
+                <li><a href="#" data-lesson="4" class="lesson-link">Working with Users</a></li>
+                <li><a href="#" data-lesson="5" class="lesson-link">Class Management</a></li>
+                <li><a href="#" data-lesson="6" class="lesson-link">JOIN Operations</a></li>
+                <li><a href="#" data-lesson="7" class="lesson-link">Aggregate Functions</a></li>
+                <li><a href="#" data-lesson="8" class="lesson-link">Attendance Analytics</a></li>
+                <li><a href="#" data-lesson="9" class="lesson-link">Advanced Queries</a></li>
+                <li><a href="#" data-lesson="10" class="lesson-link">Views and Reports</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="content-wrapper">
+            <section class="lesson-content">
+                <div id="lesson-text">
+                    <h2>Loading lesson...</h2>
+                </div>
+            </section>
+
+            <section class="query-section">
+                <div class="schema-viewer">
+                    <h3>📋 Database Schema</h3>
+                    <div id="schema-content">
+                        <div class="table-info">
+                            <h4>👥 users</h4>
+                            <p><strong>id</strong>, username, email, user_type, approved, created_at</p>
+                        </div>
+                        <div class="table-info">
+                            <h4>📚 classes</h4>
+                            <p><strong>id</strong>, teacher_id, name, subject, description, capacity, schedule, status</p>
+                        </div>
+                        <div class="table-info">
+                            <h4>✏️ class_enrollments</h4>
+                            <p><strong>id</strong>, class_id, student_id, student_name, enrollment_date, status</p>
+                        </div>
+                        <div class="table-info">
+                            <h4>📊 class_attendance</h4>
+                            <p><strong>id</strong>, class_id, student_id, student_name, attendance_date, status, recorded_by</p>
+                        </div>
+                        <div class="table-info">
+                            <h4>📅 events</h4>
+                            <p><strong>id</strong>, title, description, event_date, event_time, location, created_by</p>
+                        </div>
+                        <div class="table-info">
+                            <h4>💬 messages</h4>
+                            <p><strong>id</strong>, user_id, subject, content, senderName, recipientWorker, timestamp</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sql-editor">
+                    <h3>🔍 SQL Query Editor</h3>
+                    <div class="editor-container">
+                        <textarea id="sql-input" placeholder="Type your SQL query here...">SELECT * FROM users LIMIT 5;</textarea>
+                        <div class="editor-controls">
+                            <button id="run-query" class="btn-primary">Run Query</button>
+                            <button id="clear-query" class="btn-secondary">Clear</button>
+                            <button id="show-solution" class="btn-hint">Show Solution</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="results-section">
+                    <h3>📈 Query Results</h3>
+                    <div id="query-results">
+                        <p class="no-results">Run a query to see results here...</p>
+                    </div>
+                    <div id="query-info" class="query-info"></div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Community Center SQL Tutorial. Learn SQL with real-world data!</p>
+            <p><a href="https://github.com" target="_blank">View on GitHub</a></p>
+        </div>
+    </footer>
+
+    <script src="assets/script.js"></script>
+</body>
+</html>
