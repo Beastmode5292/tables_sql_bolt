@@ -549,6 +549,111 @@ footer a:hover {
     to { transform: rotate(360deg); }
 }
 
+/* Lesson Table Display (SQLBolt style) */
+.lesson-table-container {
+    margin: 1.5rem 0;
+    background: var(--card-background);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+}
+
+.lesson-table-container h3 {
+    background: var(--background-color);
+    padding: 1rem;
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 1rem;
+    font-weight: 600;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.lesson-table-wrapper {
+    overflow-x: auto;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.lesson-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+    font-size: 0.9rem;
+    background: var(--card-background);
+}
+
+.lesson-table th {
+    background: #f8f9fa;
+    color: var(--text-primary);
+    padding: 0.75rem;
+    text-align: left;
+    font-weight: 600;
+    border-bottom: 2px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.lesson-table th:last-child {
+    border-right: none;
+}
+
+.lesson-table td {
+    padding: 0.75rem;
+    border-bottom: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
+    color: var(--text-primary);
+    vertical-align: top;
+}
+
+.lesson-table td:last-child {
+    border-right: none;
+}
+
+.lesson-table tr:nth-child(even) {
+    background: rgba(248, 249, 250, 0.5);
+}
+
+.lesson-table tr:hover {
+    background: rgba(37, 99, 235, 0.05);
+}
+
+/* Operator reference table */
+.operator-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+    background: var(--card-background);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+.operator-table th {
+    background: var(--primary-color);
+    color: white;
+    padding: 0.75rem;
+    text-align: left;
+    font-weight: 600;
+}
+
+.operator-table td {
+    padding: 0.75rem;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+.operator-table tr:nth-child(even) {
+    background: rgba(248, 249, 250, 0.5);
+}
+
+.operator-table tr:hover {
+    background: rgba(37, 99, 235, 0.05);
+}
+
 /* Success/Error Messages */
 .message {
     padding: 1rem;

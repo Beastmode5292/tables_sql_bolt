@@ -208,62 +208,36 @@ class SQLTutorial {
             1: {
                 title: "Introduction & Basic SELECT",
                 content: `
-                    <h2>🎓 Welcome to Community Center SQL!</h2>
-                    <p>Welcome to your SQL journey! You'll be learning SQL using a real community center database that manages users, classes, events, and attendance.</p>
+                    <h2>SQL Lesson 1: SELECT queries</h2>
+                    <p>To retrieve data from a SQL database, we need to write <code>SELECT</code> statements, which are often colloquially refered to as queries. A query in itself is just a statement which declares what data we are looking for, where to find it in the database, and optionally, how to transform it before it is returned. It has a specific syntax though, which is what we are going to learn in the following exercises.</p>
                     
-                    <h3>Explore the Database Tables</h3>
-                    <p>👈 Look at the left panel and click "Show Data" on any table to see the actual data!</p>
-                    <p>Our community center database contains:</p>
-                    <ul>
-                        <li><strong>users</strong> - Teachers (workers) and students (visitors)</li>
-                        <li><strong>classes</strong> - Various classes offered by teachers</li>
-                        <li><strong>class_enrollments</strong> - Students enrolled in classes</li>
-                        <li><strong>class_attendance</strong> - Daily attendance records</li>
-                        <li><strong>events</strong> - Community events and activities</li>
-                        <li><strong>messages</strong> - Communication between students and teachers</li>
-                    </ul>
+                    <p>As we can see in the community center below, the database represents the community center with all the users, classes, events, and attendance data that you might need to run a community center. To continue onto the next lesson, alter the query to find the exact information we need for each task.</p>
 
-                    <h3>Exercise 1 — Tasks</h3>
-                    <p>Let's start with the most basic SQL command: <code>SELECT</code>. This command lets you retrieve data from a table.</p>
-                    
-                    <ol>
-                        <li><strong>Find the <code>title</code> of each user</strong> (hint: look at the users table schema)</li>
-                        <li><strong>Find the <code>name</code> of each class</strong></li>
-                        <li><strong>Find the <code>title</code> and <code>event_date</code> of each event</strong></li>
-                        <li><strong>Find all the information about each user</strong></li>
-                    </ol>
-
-                    <p><strong>Start here:</strong> Type your first query to see all users:</p>
-                    <pre><code>SELECT * FROM users;</code></pre>
-                    <p>The <code>*</code> means "all columns" and <code>FROM users</code> specifies which table to query.</p>
-
-                    <p><strong>Stuck?</strong> Click "Show Solution" for help, or explore the table data in the left panel!</p>
+                    <div id="table-display"></div>
                 `,
                 solution: "SELECT * FROM users;",
-                hint: "Use SELECT * FROM users; to see all user data. Then try SELECT username FROM users; for just usernames."
+                hint: "Use SELECT * FROM users; to see all user data."
             },
             2: {
                 title: "Filtering with WHERE",
                 content: `
-                    <h2>🔍 Filtering Data with WHERE</h2>
-                    <p>Great job! Now let's learn to filter data. The <code>WHERE</code> clause lets you specify conditions.</p>
+                    <h2>SQL Lesson 2: Queries with constraints (Pt. 1)</h2>
+                    <p>Now we have a table with a few rows of data in it, but if we had a table with thousands or even millions of rows, reading through all the rows would be inefficient and perhaps even impossible.</p>
                     
-                    <h3>Finding Specific Users</h3>
-                    <p>Let's find only the teachers in our community center. Teachers have <code>user_type = 'worker'</code>.</p>
-                    <p><strong>Task:</strong> Write a query to find all users who are teachers (workers):</p>
-                    <pre><code>SELECT * FROM users WHERE user_type = 'worker';</code></pre>
+                    <p>In order to filter certain results from being returned, we need to use a <code>WHERE</code> clause in the query. The clause is applied to each row of data by checking specific column values to determine whether it should be included in the results or not.</p>
 
-                    <h3>Different WHERE Conditions</h3>
-                    <p>You can use various conditions:</p>
-                    <ul>
-                        <li><code>=</code> for exact matches</li>
-                        <li><code>!=</code> or <code>&lt;&gt;</code> for not equal</li>
-                        <li><code>LIKE</code> for pattern matching</li>
-                        <li><code>AND</code>, <code>OR</code> for multiple conditions</li>
-                    </ul>
+                    <div id="table-display"></div>
 
-                    <h3>Try It!</h3>
-                    <p>Find all the teachers, then try finding all approved users!</p>
+                    <p>More complex clauses can be constructed by joining numerous <code>AND</code> or <code>OR</code> logical keywords (ie. <code>num_wheels >= 4 AND doors <= 2</code>). Below are some useful operators that you can use for numerical data (ie. integer or floating point):</p>
+                    
+                    <table class="operator-table">
+                        <tr><th>Operator</th><th>Condition</th><th>SQL Example</th></tr>
+                        <tr><td>=, !=, &lt; &lt;=, &gt;, &gt;=</td><td>Standard numerical operators</td><td>col_name != 4</td></tr>
+                        <tr><td>BETWEEN … AND …</td><td>Number is within range of two values (inclusive)</td><td>col_name BETWEEN 1.5 AND 10.5</td></tr>
+                        <tr><td>NOT BETWEEN … AND …</td><td>Number is not within range of two values (inclusive)</td><td>col_name NOT BETWEEN 1 AND 10</td></tr>
+                        <tr><td>IN (…)</td><td>Number exists in a list</td><td>col_name IN (2, 4, 6)</td></tr>
+                        <tr><td>NOT IN (…)</td><td>Number does not exist in a list</td><td>col_name NOT IN (1, 3, 5)</td></tr>
+                    </table>
                 `,
                 solution: "SELECT * FROM users WHERE user_type = 'worker';",
                 hint: "Use WHERE user_type = 'worker' to filter for teachers"
@@ -554,9 +528,15 @@ GROUP BY strftime('%Y-%m', attendance_date);</code></pre>
         document.getElementById('query-results').innerHTML = '<p class="no-results">Run a query to see results here...</p>';
         document.getElementById('query-info').innerHTML = '';
 
-        // Set a default query for lesson 1
+        // Set default queries and table displays for lessons
         if (lessonNumber === 1) {
             document.getElementById('sql-input').value = 'SELECT * FROM users;';
+            // Load the users table data into the lesson content
+            setTimeout(() => this.displayTableInLesson('users'), 100);
+        } else if (lessonNumber === 2) {
+            document.getElementById('sql-input').value = 'SELECT * FROM users WHERE user_type = "worker";';
+            // Load the users table data into the lesson content
+            setTimeout(() => this.displayTableInLesson('users'), 100);
         }
 
         console.log(`Loaded lesson ${lessonNumber}: ${lesson.title}`);
@@ -683,6 +663,54 @@ GROUP BY strftime('%Y-%m', attendance_date);</code></pre>
             }
         } catch (error) {
             return `<p style="color: var(--error-color);">Error loading table: ${error.message}</p>`;
+        }
+    }
+
+    // Method to display table directly in lesson content (like SQLBolt)
+    displayTableInLesson(tableName) {
+        const tableDisplayDiv = document.getElementById('table-display');
+        if (!tableDisplayDiv) return;
+
+        try {
+            const results = this.db.exec(`SELECT * FROM ${tableName}`);
+            if (results && results.length > 0) {
+                const { columns, values } = results[0];
+                
+                let html = `
+                    <div class="lesson-table-container">
+                        <h3>Table: ${tableName.charAt(0).toUpperCase() + tableName.slice(1)}</h3>
+                        <div class="lesson-table-wrapper">
+                            <table class="lesson-table">
+                                <thead>
+                                    <tr>`;
+                
+                columns.forEach(col => {
+                    html += `<th>${col}</th>`;
+                });
+                
+                html += `</tr>
+                                </thead>
+                                <tbody>`;
+
+                values.forEach((row, index) => {
+                    html += '<tr>';
+                    row.forEach(cell => {
+                        html += `<td>${cell !== null ? cell : 'NULL'}</td>`;
+                    });
+                    html += '</tr>';
+                });
+                
+                html += `</tbody>
+                            </table>
+                        </div>
+                    </div>`;
+                
+                tableDisplayDiv.innerHTML = html;
+            } else {
+                tableDisplayDiv.innerHTML = '<p>No data found</p>';
+            }
+        } catch (error) {
+            tableDisplayDiv.innerHTML = `<p style="color: var(--error-color);">Error loading table: ${error.message}</p>`;
         }
     }
 }
