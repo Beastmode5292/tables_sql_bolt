@@ -10,7 +10,7 @@
 <body>
     <header>
         <div class="container">
-            <h1>🏢 Community Center SQL Tutorial</h1>
+            <h1>Community Center SQL Tutorial</h1>
             <p>Learn SQL with a real-world community center database!</p>
         </div>
     </header>
@@ -27,82 +27,160 @@
 
             <section class="query-section">
                 <div class="schema-viewer">
-                    <h3>📋 Database Tables</h3>
+                    <h3>Database Tables</h3>
                     <div id="schema-content">
-                        <div class="table-preview" data-table="users">
+                        <div class="table-preview" data-table="VehicleNUM">
                             <div class="table-header">
-                                <h4>👥 users</h4>
-                                <button class="toggle-table" onclick="toggleTableData('users')">Show Data ▼</button>
+                                <h4>VehicleNUM</h4>
+                                <button class="toggle-table" onclick="toggleTableData('VehicleNUM')">Show Data ▼</button>
                             </div>
                             <div class="table-schema">
-                                <p><strong>id</strong>, username, email, user_type, approved, created_at</p>
+                                <p><strong>VehicleNUM</strong>, Make, Model, Year, License_Plate, Capacity, Accessibility_Features, Status</p>
                             </div>
-                            <div class="table-data" id="users-data" style="display: none;">
+                            <div class="table-data" id="VehicleNUM-data" style="display: none;">
                                 <div class="loading">Loading...</div>
                             </div>
                         </div>
                         
-                        <div class="table-preview" data-table="classes">
+                        <div class="table-preview" data-table="Transportation">
                             <div class="table-header">
-                                <h4>📚 classes</h4>
-                                <button class="toggle-table" onclick="toggleTableData('classes')">Show Data ▼</button>
+                                <h4>Transportation</h4>
+                                <button class="toggle-table" onclick="toggleTableData('Transportation')">Show Data ▼</button>
                             </div>
                             <div class="table-schema">
-                                <p><strong>id</strong>, teacher_id, name, subject, description, capacity, schedule, status</p>
+                                <p><strong>TransportationID</strong>, VehicleNUM, Route_Name, Pickup_Time, Dropoff_Time, Driver_Name</p>
                             </div>
-                            <div class="table-data" id="classes-data" style="display: none;">
+                            <div class="table-data" id="Transportation-data" style="display: none;">
                                 <div class="loading">Loading...</div>
                             </div>
                         </div>
                         
-                        <div class="table-preview" data-table="class_enrollments">
+                        <div class="table-preview" data-table="Participant">
                             <div class="table-header">
-                                <h4>✏️ class_enrollments</h4>
-                                <button class="toggle-table" onclick="toggleTableData('class_enrollments')">Show Data ▼</button>
+                                <h4>Participant</h4>
+                                <button class="toggle-table" onclick="toggleTableData('Participant')">Show Data ▼</button>
                             </div>
                             <div class="table-schema">
-                                <p><strong>id</strong>, class_id, student_id, student_name, enrollment_date, status</p>
+                                <p><strong>ParticipantID</strong>, First_Name, Last_Name, Date_of_Birth, Phone, Address, TransportationID</p>
                             </div>
-                            <div class="table-data" id="class_enrollments-data" style="display: none;">
+                            <div class="table-data" id="Participant-data" style="display: none;">
                                 <div class="loading">Loading...</div>
                             </div>
                         </div>
                         
-                        <div class="table-preview" data-table="class_attendance">
+                        <div class="table-preview" data-table="EmergencyContact">
                             <div class="table-header">
-                                <h4>📊 class_attendance</h4>
-                                <button class="toggle-table" onclick="toggleTableData('class_attendance')">Show Data ▼</button>
+                                <h4>EmergencyContact</h4>
+                                <button class="toggle-table" onclick="toggleTableData('EmergencyContact')">Show Data ▼</button>
                             </div>
                             <div class="table-schema">
-                                <p><strong>id</strong>, class_id, student_id, student_name, attendance_date, status, recorded_by</p>
+                                <p><strong>EmergencyContactID</strong>, ParticipantID, Contact_Name, Relationship, Phone</p>
                             </div>
-                            <div class="table-data" id="class_attendance-data" style="display: none;">
+                            <div class="table-data" id="EmergencyContact-data" style="display: none;">
                                 <div class="loading">Loading...</div>
                             </div>
                         </div>
                         
-                        <div class="table-preview" data-table="events">
+                        <div class="table-preview" data-table="Facility">
                             <div class="table-header">
-                                <h4>📅 events</h4>
-                                <button class="toggle-table" onclick="toggleTableData('events')">Show Data ▼</button>
+                                <h4>Facility</h4>
+                                <button class="toggle-table" onclick="toggleTableData('Facility')">Show Data ▼</button>
                             </div>
                             <div class="table-schema">
-                                <p><strong>id</strong>, title, description, event_date, event_time, location, created_by</p>
+                                <p><strong>FacilityID</strong>, Facility_Name, Address, Phone, Manager_Name</p>
                             </div>
-                            <div class="table-data" id="events-data" style="display: none;">
+                            <div class="table-data" id="Facility-data" style="display: none;">
                                 <div class="loading">Loading...</div>
                             </div>
                         </div>
                         
-                        <div class="table-preview" data-table="messages">
+                        <div class="table-preview" data-table="Room">
                             <div class="table-header">
-                                <h4>💬 messages</h4>
-                                <button class="toggle-table" onclick="toggleTableData('messages')">Show Data ▼</button>
+                                <h4>Room</h4>
+                                <button class="toggle-table" onclick="toggleTableData('Room')">Show Data ▼</button>
                             </div>
                             <div class="table-schema">
-                                <p><strong>id</strong>, user_id, subject, content, senderName, recipientWorker, timestamp</p>
+                                <p><strong>RoomID</strong>, FacilityID, Room_Name, Capacity, Equipment</p>
                             </div>
-                            <div class="table-data" id="messages-data" style="display: none;">
+                            <div class="table-data" id="Room-data" style="display: none;">
+                                <div class="loading">Loading...</div>
+                            </div>
+                        </div>
+
+                        <div class="table-preview" data-table="Instructor">
+                            <div class="table-header">
+                                <h4>Instructor</h4>
+                                <button class="toggle-table" onclick="toggleTableData('Instructor')">Show Data ▼</button>
+                            </div>
+                            <div class="table-schema">
+                                <p><strong>InstructorID</strong>, First_Name, Last_Name, Phone, Email, Certification</p>
+                            </div>
+                            <div class="table-data" id="Instructor-data" style="display: none;">
+                                <div class="loading">Loading...</div>
+                            </div>
+                        </div>
+
+                        <div class="table-preview" data-table="Class">
+                            <div class="table-header">
+                                <h4>Class</h4>
+                                <button class="toggle-table" onclick="toggleTableData('Class')">Show Data ▼</button>
+                            </div>
+                            <div class="table-schema">
+                                <p><strong>ClassID</strong>, Class_Name, InstructorID, RoomID, Start_Date, End_Date, Schedule, Max_Capacity, Cost</p>
+                            </div>
+                            <div class="table-data" id="Class-data" style="display: none;">
+                                <div class="loading">Loading...</div>
+                            </div>
+                        </div>
+
+                        <div class="table-preview" data-table="Attendance">
+                            <div class="table-header">
+                                <h4>Attendance</h4>
+                                <button class="toggle-table" onclick="toggleTableData('Attendance')">Show Data ▼</button>
+                            </div>
+                            <div class="table-schema">
+                                <p><strong>AttendanceID</strong>, ParticipantID, ClassID, Date, Status</p>
+                            </div>
+                            <div class="table-data" id="Attendance-data" style="display: none;">
+                                <div class="loading">Loading...</div>
+                            </div>
+                        </div>
+
+                        <div class="table-preview" data-table="Activity">
+                            <div class="table-header">
+                                <h4>Activity</h4>
+                                <button class="toggle-table" onclick="toggleTableData('Activity')">Show Data ▼</button>
+                            </div>
+                            <div class="table-schema">
+                                <p><strong>ActivityID</strong>, Activity_Name, Description, Date, FacilityID, Cost</p>
+                            </div>
+                            <div class="table-data" id="Activity-data" style="display: none;">
+                                <div class="loading">Loading...</div>
+                            </div>
+                        </div>
+
+                        <div class="table-preview" data-table="ParticipantActivity">
+                            <div class="table-header">
+                                <h4>ParticipantActivity</h4>
+                                <button class="toggle-table" onclick="toggleTableData('ParticipantActivity')">Show Data ▼</button>
+                            </div>
+                            <div class="table-schema">
+                                <p><strong>ParticipantActivityID</strong>, ParticipantID, ActivityID, Registration_Date, Status</p>
+                            </div>
+                            <div class="table-data" id="ParticipantActivity-data" style="display: none;">
+                                <div class="loading">Loading...</div>
+                            </div>
+                        </div>
+
+                        <div class="table-preview" data-table="Meal">
+                            <div class="table-header">
+                                <h4>Meal</h4>
+                                <button class="toggle-table" onclick="toggleTableData('Meal')">Show Data ▼</button>
+                            </div>
+                            <div class="table-schema">
+                                <p><strong>MealID</strong>, ParticipantID, Meal_Type, Date, Special_Dietary_Needs, Cost</p>
+                            </div>
+                            <div class="table-data" id="Meal-data" style="display: none;">
                                 <div class="loading">Loading...</div>
                             </div>
                         </div>
@@ -111,9 +189,9 @@
 
                 <div class="editor-and-results">
                     <div class="sql-editor">
-                        <h3>🔍 SQL Query Editor</h3>
+                        <h3>SQL Query Editor</h3>
                         <div class="editor-container">
-                            <textarea id="sql-input" placeholder="Type your SQL query here...">SELECT * FROM users;</textarea>
+                            <textarea id="sql-input" placeholder="Type your SQL query here...">SELECT * FROM Participant;</textarea>
                             <div class="editor-controls">
                                 <button id="run-query" class="btn-primary">Run Query</button>
                                 <button id="clear-query" class="btn-secondary">Clear</button>
@@ -123,7 +201,7 @@
                     </div>
 
                     <div class="results-section">
-                        <h3>📈 Query Results</h3>
+                        <h3>Query Results</h3>
                         <div id="query-results">
                             <p class="no-results">Run a query to see results here...</p>
                         </div>
